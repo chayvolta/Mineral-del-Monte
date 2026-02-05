@@ -1,0 +1,157 @@
+[
+  {
+    "id": 1,
+    "name": "Mina la Rica"
+  },
+  {
+    "id": 2,
+    "name": "Museo del Paste",
+    "coord1": 20.1393509,
+    "coord2": -98.6842793,
+    "url": "https://maps.app.goo.gl/ddshQvKM7QWDtRWq9"
+  },
+  {
+    "id": 3,
+    "name": "Capilla Santa Cruz",
+    "coord1": 20.1418175,
+    "coord2": -98.672199,
+    "url": "https://maps.app.goo.gl/meZkZrmYSRPkQwTu8"
+  },
+  {
+    "id": 4,
+    "name": "Parroquia Nuestra Señora del Rosario",
+    "coord1": 20.1402456,
+    "coord2": -98.6721785,
+    "url": "https://maps.app.goo.gl/8ED4eoGpY654gftE9"
+  },
+  {
+    "id": 5,
+    "name": "Portal del Comercio",
+    "coord1": 20.140541,
+    "coord2": -98.6721497,
+    "url": "https://maps.app.goo.gl/8c9FKjxoUGMbq9QcA"
+  },
+  {
+    "id": 6,
+    "name": "Capilla Señor Zelontla",
+    "coord1": 20.1396333,
+    "coord2": -98.6726421,
+    "url": "https://maps.app.goo.gl/NDEqvF1MSyTvcYWn8"
+  },
+  {
+    "id": 7,
+    "name": "Panteón Inglés",
+    "coord1": 20.1391519,
+    "coord2": -98.6661789,
+    "url": "https://maps.app.goo.gl/2XN54tDbzFgo3uXt5"
+  },
+  {
+    "id": 8,
+    "name": "Mercado Municipal Camerino Z. Mendoza",
+    "coord1": 20.1382001,
+    "coord2": -98.6738609,
+    "url": "https://maps.app.goo.gl/mLi4Kd9UGBh1bNao7"
+  },
+  {
+    "id": 9,
+    "name": "Museo Casa Grande",
+    "coord1": 20.1397694,
+    "coord2": -98.6719844,
+    "url": "https://maps.app.goo.gl/tiqacT54woSFEBfEA"
+  },
+  {
+    "id": 10,
+    "name": "Museo de Medicina Laboral",
+    "coord1": 20.1399269,
+    "coord2": -98.6737858,
+    "url": "https://maps.app.goo.gl/GesiCcEmUfEVKQxw7"
+  },
+  {
+    "id": 11,
+    "name": "Monumento al Minero",
+    "coord1": 20.1382411,
+    "coord2": -98.6733667,
+    "url": "https://maps.app.goo.gl/6fNWNoEfDavpMEBK9"
+  },
+  {
+    "id": 12,
+    "name": "Mirador Purisima",
+    "coord1": 20.1427726,
+    "coord2": -98.6781519,
+    "url": "https://maps.app.goo.gl/xmG7Bi6vJjU63ATE9"
+  },
+  {
+    "id": 13,
+    "name": "Pariam Centro Gastronomico y Artesanal",
+    "coord1": 20.1394873,
+    "coord2": -98.6732557,
+    "url": "https://maps.app.goo.gl/M2NKLNHdVvzYHZ4U8"
+  },
+  {
+    "id": 14,
+    "name": "Parque Municipal Pedro Romero de Terreros",
+    "coord1": 20.135911,
+    "coord2": -98.6726626,
+    "url": "https://maps.app.goo.gl/S5vX515woefEJd6S8"
+  },
+  {
+    "id": 15,
+    "name": "Sitio de Taxis y Combis",
+    "coord1": 20.1356785,
+    "coord2": -98.6722198,
+    "url": "https://maps.app.goo.gl/xVM3WE3WTtMabMaL6"
+  },
+  {
+    "id": 16,
+    "name": "Mina de Acosta",
+    "coord1": 20.1471492,
+    "coord2": -98.6676892,
+    "url": "https://maps.app.goo.gl/qFsDgE2Hbb2cH3vQ8"
+  },
+  {
+    "id": 17,
+    "name": "Mirador del Hospital Minero",
+    "coord1": 20.1396717,
+    "coord2": -98.674434,
+    "url": "https://maps.app.goo.gl/3k2GyJCD43BoYAGF8"
+  },
+  {
+    "id": 18,
+    "name": "Mercado Murillo Karam",
+    "coord1": 20.1378841,
+    "coord2": -98.6748962,
+    "url": "https://maps.app.goo.gl/eGx1zxPVv1CTk7N48"
+  },
+  {
+    "id": 19,
+    "name": "Mina de Dificultad",
+    "coord1": 20.1459553,
+    "coord2": -98.6719419,
+    "url": "https://maps.app.goo.gl/kq7tHa2PRJyqsgEi6"
+  },
+  {
+    "id": 20,
+    "name": "Palacio Municipal",
+    "coord1": 20.1405017,
+    "coord2": -98.6720351,
+    "url": "https://maps.app.goo.gl/oiazEMNySZaFcQho7"
+  },
+  {
+    "id": 21,
+    "name": "Bosque del Hiloche",
+    "coord1": 20.1430112,
+    "coord2": -98.6831769,
+    "url": "https://maps.app.goo.gl/J1QUg8kFA4VQbZWE6"
+  },
+  {
+    "id": 22,
+    "name": "Turibus Camiones Turísticos",
+    "coord1": 20.1356785,
+    "coord2": -98.6722198,
+    "url": "https://maps.app.goo.gl/gV9YtyVU3DjUePpk9"
+  },
+  {
+    "id": 23,
+    "name": "Portal del Comercio"
+  }
+]
