@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Facebook, Instagram, Globe, MapPin, Navigation, ExternalLink, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
+import { X, Facebook, Instagram, Globe, MapPin, Navigation, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 
-// Placeholder images for carousel
-const placeholderImages = [
-  '/images/sites/site_1.svg', // Fallback defaults if site-specific not found
-  '/images/sites/site_2.svg',
-  '/images/sites/site_3.svg'
-];
+const FALLBACK_IMAGE = '/images/sites/site_1.svg';
 
 const SiteCard = ({ site, onClose }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageExpanded, setIsImageExpanded] = useState(false);
+  const [imgErrors, setImgErrors] = useState({});
 
   // Use site-specific images (should be 3), fallback to empty to avoid crashing if data missing
   const images = site?.images || [];
@@ -19,6 +15,7 @@ const SiteCard = ({ site, onClose }) => {
   // Reset index if images change (e.g. switching sites)
   React.useEffect(() => {
     setCurrentImageIndex(0);
+    setImgErrors({});
   }, [site?.id]);
 
   if (!site) return null;
@@ -27,6 +24,8 @@ const SiteCard = ({ site, onClose }) => {
   const isValidLink = (value) => {
     return value && value.trim() !== '' && value.toUpperCase() !== 'ND';
   };
+
+  const hasAnySocialLink = isValidLink(site.facebook) || isValidLink(site.instagram) || isValidLink(site.web);
 
   const nextImage = () => {
     if (images.length === 0) return;
@@ -37,6 +36,12 @@ const SiteCard = ({ site, onClose }) => {
     if (images.length === 0) return;
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
+
+  const handleImgError = (index) => {
+    setImgErrors((prev) => ({ ...prev, [index]: true }));
+  };
+
+  const currentSrc = imgErrors[currentImageIndex] ? FALLBACK_IMAGE : images[currentImageIndex];
 
   return (
     <>
@@ -53,9 +58,10 @@ const SiteCard = ({ site, onClose }) => {
           }}
           className="absolute bottom-4 left-4 right-4 md:left-auto md:right-8 md:bottom-8 md:w-[380px] bg-white border border-gray-200 rounded-xl shadow-2xl z-[1000] overflow-hidden"
         >
-          {/* Close button - Custom addition to the design */}
+          {/* Close button */}
           <button 
             onClick={onClose}
+            aria-label="Cerrar"
             className="absolute top-3 right-3 z-20 bg-black/50 hover:bg-black/70 text-white rounded-full p-1.5 transition-all backdrop-blur-sm"
           >
             <X size={16} />
@@ -66,13 +72,14 @@ const SiteCard = ({ site, onClose }) => {
             <AnimatePresence mode="wait">
               <motion.img
                 key={currentImageIndex}
-                src={images[currentImageIndex]}
-                alt={site.name}
+                src={currentSrc}
+                alt={`${site.name} – imagen ${currentImageIndex + 1}`}
                 className="w-full h-full object-cover"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
+                onError={() => handleImgError(currentImageIndex)}
               />
             </AnimatePresence>
             
@@ -81,23 +88,42 @@ const SiteCard = ({ site, onClose }) => {
               <>
                 <button
                   onClick={prevImage}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-all backdrop-blur-sm"
+                  aria-label="Imagen anterior"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1.5 transition-all backdrop-blur-sm md:opacity-0 md:group-hover:opacity-100 opacity-100"
                 >
                   <ChevronLeft size={20} />
                 </button>
                 <button
                   onClick={nextImage}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-all backdrop-blur-sm"
+                  aria-label="Imagen siguiente"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1.5 transition-all backdrop-blur-sm md:opacity-0 md:group-hover:opacity-100 opacity-100"
                 >
                   <ChevronRight size={20} />
                 </button>
+
+                {/* Dot indicators */}
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+                  {images.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentImageIndex(i)}
+                      aria-label={`Ver imagen ${i + 1}`}
+                      className={`w-1.5 h-1.5 rounded-full transition-all ${
+                        i === currentImageIndex ? 'bg-white w-3' : 'bg-white/60'
+                      }`}
+                    />
+                  ))}
+                </div>
               </>
             )}
             
-            {/* Expand button */}
+            {/* Expand button – positioned higher when dots are present */}
             <button
               onClick={() => setIsImageExpanded(true)}
-              className="absolute bottom-2 right-2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-all backdrop-blur-sm"
+              aria-label="Ver imagen ampliada"
+              className={`absolute right-2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1.5 transition-all backdrop-blur-sm md:opacity-0 md:group-hover:opacity-100 opacity-100 ${
+                images.length > 1 ? 'bottom-8' : 'bottom-2'
+              }`}
             >
               <Maximize2 size={16} />
             </button>
@@ -133,29 +159,31 @@ const SiteCard = ({ site, onClose }) => {
               )}
 
               {/* Secondary: Socials */}
-              <div className="flex items-center justify-center gap-2 pt-2 border-t border-gray-100">
-                {isValidLink(site.facebook) && (
-                  <a href={site.facebook} target="_blank" rel="noopener noreferrer" className="p-2 text-gray-500 hover:text-[#1877F2] hover:bg-blue-50 rounded-full transition-colors" title="Facebook">
-                    <Facebook size={20} />
-                  </a>
-                )}
-                {isValidLink(site.instagram) && (
-                  <a href={site.instagram} target="_blank" rel="noopener noreferrer" className="p-2 text-gray-500 hover:text-[#E4405F] hover:bg-pink-50 rounded-full transition-colors" title="Instagram">
-                    <Instagram size={20} />
-                  </a>
-                )}
-                {isValidLink(site.web) && (
-                  <a href={site.web} target="_blank" rel="noopener noreferrer" className="p-2 text-gray-500 hover:text-teal-600 hover:bg-teal-50 rounded-full transition-colors" title="Web">
-                    <Globe size={20} />
-                  </a>
-                )}
-              </div>
+              {hasAnySocialLink && (
+                <div className="flex items-center justify-center gap-2 pt-2 border-t border-gray-100">
+                  {isValidLink(site.facebook) && (
+                    <a href={site.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="p-2 text-gray-500 hover:text-[#1877F2] hover:bg-blue-50 rounded-full transition-colors">
+                      <Facebook size={20} />
+                    </a>
+                  )}
+                  {isValidLink(site.instagram) && (
+                    <a href={site.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-2 text-gray-500 hover:text-[#E4405F] hover:bg-pink-50 rounded-full transition-colors">
+                      <Instagram size={20} />
+                    </a>
+                  )}
+                  {isValidLink(site.web) && (
+                    <a href={site.web} target="_blank" rel="noopener noreferrer" aria-label="Sitio web" className="p-2 text-gray-500 hover:text-teal-600 hover:bg-teal-50 rounded-full transition-colors">
+                      <Globe size={20} />
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </motion.div>
       </AnimatePresence>
 
-      {/* Expanded Image Modal - Kept separate for z-index/portal reasons */}
+      {/* Expanded Image Modal */}
       <AnimatePresence>
         {isImageExpanded && (
           <motion.div
@@ -167,12 +195,13 @@ const SiteCard = ({ site, onClose }) => {
           >
             <button
               onClick={() => setIsImageExpanded(false)}
+              aria-label="Cerrar imagen"
               className="absolute top-4 right-4 bg-white/20 hover:bg-white/30 text-white rounded-full p-3 transition-all backdrop-blur-sm"
             >
               <X size={24} />
             </button>
             <motion.img
-              src={images[currentImageIndex]}
+              src={currentSrc}
               alt={site.name}
               className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
               initial={{ scale: 0.9 }}
