@@ -202,7 +202,7 @@ const MapComponent = ({ sites, selectedSite, onSelectSite }) => {
           >
             <div className="p-3">
               <h3 className="font-bold text-sm">{showPopup.name}</h3>
-              <p className="text-xs text-gray-600 mt-1">Clic para ver detalles</p>
+              <p className="text-xs text-gray-600 mt-1">Toca para ver detalles</p>
             </div>
           </Popup>
         )}
